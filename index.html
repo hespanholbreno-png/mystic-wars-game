@@ -2193,4 +2193,26 @@ btn(form,'Recuperar senha',async()=>{if(!email.value.trim()||!email.checkValidit
 const check=btn(section,'Verificar perfil',verify);const out=btn(section,'Sair da conta',async()=>{try{await req('/auth/v1/logout?scope=local',{},await token())}finally{save(null);profile.textContent='';status.textContent='Sessão local encerrada.'}});
 render();if(session)check.click();else status.textContent='Entre ou crie uma conta. O jogo casual continua disponível.';
 })();
-</script></body></html>
+</script><style id="mw3017-responsive">
+/* Desktop/tablet landscape: preserve the original portrait artwork and hit areas. */
+@media (min-aspect-ratio: 1/1), (min-width: 700px) {
+ html body #mwWelcome, html body #mwMainMenu {
+ background:radial-gradient(ellipse at center,#30234c 0%,#12182e 50%,#060914 90%)!important;
+ }
+ html body #mwWelcome .mw-start-content, html body #mwMainMenu .mw-start-content {
+ width:min(100vw,75vh)!important;width:min(100vw,75dvh)!important;
+ height:min(100vh,133.3333vw)!important;height:min(100dvh,133.3333vw)!important;
+ aspect-ratio:3/4!important;margin:auto!important;flex:none!important;
+ background-size:100% 100%!important;box-shadow:0 0 45px #000c!important;
+ }
+ html body.mw33-on {background:radial-gradient(ellipse at center,#30234c,#080b18 75%)!important;}
+ html body.mw33-on > .wrap {width:min(100vw,66.6667vh)!important;width:min(100vw,66.6667dvh)!important;max-width:none!important;margin:0 auto!important;}
+ html body.mw33-on #mw33stage {width:100%!important;height:auto!important;min-height:0!important;aspect-ratio:2/3!important;flex:none!important;}
+ html body #mwMainMenu #mwMenuSettings {max-height:85%!important;overflow:auto!important;}
+ html body #mwMainMenu #mw30Balance {font-size:12px!important;}
+ html body #mw33stage #endBtn {font-size:clamp(11px,2vh,18px)!important;padding:0!important;}
+ html body #mw33stage .mw-r292-title {font-size:clamp(10px,1.8vh,17px)!important;}
+ html body #mw30Grid {grid-template-columns:repeat(auto-fill,minmax(115px,1fr))!important;max-width:1100px;margin:auto;}
+}
+</style>
+</body></html>
