@@ -1616,7 +1616,7 @@ window.mwMusic={play:start,pause:()=>audio.pause(),getAudio:()=>audio};
    <button id="mwMenuMusic" type="button">⏸ Pausar música</button>
    <p class="mw-start-note">Os efeitos sonoros permanecem controlados pelo botão de sons na arena.</p>
   </div>
-  <div id="mw30Balance">🪙 0 Dracmas · Rev. 30.19</div><button type="button" class="mw30Extra" id="mw30Shop"><span class="mw30Icon" aria-hidden="true">◆</span><span class="mw30Text"><strong>LOJA DE CARTAS</strong><small>Compre cartas e pacotes</small></span></button><button type="button" class="mw30Extra" id="mw30Friends"><span class="mw30Icon" aria-hidden="true">⚔</span><span class="mw30Text"><strong>DUELO ENTRE AMIGOS</strong><small>Desafie seus amigos</small></span></button><button class="mw-start-button secondary" id="mwExit">🚪 SAIR</button>
+  <div id="mw30Balance">🪙 0 Dracmas · Rev. 30.20</div><button type="button" class="mw30Extra" id="mw30Shop"><span class="mw30Icon" aria-hidden="true">◆</span><span class="mw30Text"><strong>LOJA DE CARTAS</strong><small>Compre cartas e pacotes</small></span></button><button type="button" class="mw30Extra" id="mw30Friends"><span class="mw30Icon" aria-hidden="true">⚔</span><span class="mw30Text"><strong>DUELO ENTRE AMIGOS</strong><small>Desafie seus amigos</small></span></button><button class="mw-start-button secondary" id="mwExit">🚪 SAIR</button>
   <p class="mw-start-note" id="mwMenuMessage">Jogo casual: duelo contra a inteligência artificial.</p>
  </div>
 </div>
@@ -2108,7 +2108,7 @@ const K='mw30_economy', rewards={'Fácil':15,'Médio':30,'Difícil':60,'Expert':
 let econ={gold:0,pending:null};try{econ={...econ,...JSON.parse(localStorage.getItem(K)||'{}')};for(const k of ['cards','source'])if(Array.isArray(econ.pending?.[k]))econ.pending[k].forEach(mw3013Template)}catch(e){}
 const panel=document.getElementById('mw30Panel'), menu=document.querySelector('#mwMainMenu .mw-start-content');let timer=null;
 function save(){try{localStorage.setItem(K,JSON.stringify(econ));saveCollection();saveRecord();if(mwDeckCurrent)localStorage.setItem(MW_DECK_KEY,JSON.stringify(mwDeckCurrent));}catch(e){alert('Não foi possível salvar o progresso neste navegador.')}balance()}
-function balance(){document.getElementById('mw30Balance').textContent='🪙 '+econ.gold+' Dracmas · Rev. 30.19'}
+function balance(){document.getElementById('mw30Balance').textContent='🪙 '+econ.gold+' Dracmas · Rev. 30.20'}
 balance();
 function addButton(label,fn){const b=document.getElementById(label.includes('Loja')?'mw30Shop':'mw30Friends');b.onclick=fn;return b}
 function open(title,body=''){panel.style.display='block';panel.innerHTML='<h2>'+title+'</h2>'+body;}
@@ -2166,7 +2166,7 @@ const url='https://xidwchuomvgtbfvkyvks.supabase.co', key='sb_publishable_UssYLB
 async function testar(){const ctrl=new AbortController();const timer=setTimeout(()=>ctrl.abort(),15000);try{const r=await fetch(url+'/auth/v1/settings',{headers:{apikey:key},signal:ctrl.signal,cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);const data=await r.json();if(!data||typeof data!=='object')throw new Error('Resposta inesperada');return true;}finally{clearTimeout(timer);}}
 const panel=document.getElementById('mwMenuSettings');if(!panel)return;
 const section=document.createElement('div');section.style.cssText='margin-top:12px;border-top:1px solid #d6ac55;padding-top:10px;color:#ffe4a0';
-const label=document.createElement('strong');label.textContent='Conexão online — Rev. 30.19';
+const label=document.createElement('strong');label.textContent='Conexão online — Rev. 30.20';
 const status=document.createElement('p');status.setAttribute('role','status');status.textContent='Conexão ainda não testada. Modo offline disponível.';
 const btn=document.createElement('button');btn.type='button';btn.textContent='Testar conexão Supabase';btn.onclick=async()=>{btn.disabled=true;status.textContent='Testando conexão…';try{await testar();status.textContent='Conexão com Supabase confirmada.';}catch(e){status.textContent='Não foi possível conectar: '+(e.name==='AbortError'?'tempo limite':e.message)+'. O modo offline continua disponível.';}finally{btn.disabled=false;}};
 section.append(label,status,btn);panel.append(section);
@@ -2182,7 +2182,7 @@ window.mw18Rpc=async(name,args={})=>req('/rest/v1/rpc/'+name,args,await token())
 window.mw19Read=async(path)=>req('/rest/v1/'+path,null,await token(),'GET');
 const panel=document.getElementById('mwMenuSettings');if(!panel)return;
 const section=document.createElement('div');section.style.cssText='margin-top:12px;border-top:1px solid #d6ac55;padding-top:10px';panel.append(section);panel.style.maxHeight='85dvh';panel.style.overflowY='auto';panel.style.setProperty('top','7%','important');
-const title=document.createElement('strong');title.textContent='Conta online — Rev. 30.19';section.append(title);
+const title=document.createElement('strong');title.textContent='Conta online — Rev. 30.20';section.append(title);
 const form=document.createElement('div');section.append(form);const email=document.createElement('input'),pass=document.createElement('input');for(const [el,type,placeholder,auto] of [[email,'email','E-mail','email'],[pass,'password','Senha','current-password']]){el.type=type;el.placeholder=placeholder;el.setAttribute('aria-label',placeholder);el.autocomplete=auto;el.style.cssText='display:block;width:100%;box-sizing:border-box;margin:8px 0;padding:10px;background:#171a30;color:#fff;border:1px solid #d6ac55;border-radius:6px';form.append(el)}
 const status=document.createElement('p');status.setAttribute('role','status');section.append(status);const profile=document.createElement('p');section.append(profile);const buttons=[];let busy=false;
 function btn(parent,label,fn){const b=document.createElement('button');b.type='button';b.textContent=label;b.style.margin='3px';parent.append(b);buttons.push(b);b.onclick=async()=>{if(busy)return;busy=true;buttons.forEach(x=>x.disabled=true);status.textContent='Aguarde…';try{await fn()}catch(e){status.textContent='Não foi possível concluir: '+(e.name==='AbortError'?'tempo limite':e.message)}finally{busy=false;buttons.forEach(x=>x.disabled=false);render()}};return b}
@@ -2234,8 +2234,44 @@ const visible=rows.filter(a=>a.status==='pendente'||a.status==='aceito');
 if(!visible.length)el('p','Nenhum desafio ativo.',invites);
 for(const a of visible){const incoming=a.destinatario_id===owner;const other=incoming?a.solicitante_id:a.destinatario_id;const row=el('section','',invites);row.style.cssText='border-top:1px solid #766044;padding:8px 0;overflow-wrap:anywhere';el('p',(a.status==='aceito'?'Desafio aceito':incoming?'Desafio recebido':'Aguardando resposta')+' — '+(names.get(other)||other),row);
 if(a.status==='pendente'){for(const [label,action] of incoming?[['Aceitar','aceitar'],['Recusar','recusar']]:[['Cancelar','cancelar']])button(label,async()=>{await rpc('responder_convite_duelo',{p_convite_id:a.id,p_acao:action});await refreshInvites();return 'Resposta registrada.'},row)}
-else if(a.duelo_id){button('Sala de espera',async()=>{const d=await window.mw19Read('duelos?select=id,pv_jogador1,pv_jogador2,turno,status&id=eq.'+encodeURIComponent(a.duelo_id));if(!d.length)throw Error('Duelo indisponível');const v=d[0];let info=row.querySelector('.mw19-room');if(!info){info=el('p','',row);info.className='mw19-room'}info.textContent='Duelo '+v.status+' | PV: '+v.pv_jogador1+' × '+v.pv_jogador2+' | Turno '+v.turno+' — Arena online ainda não integrada.';return info.textContent},row)}else el('p','Aguardando criação do duelo.',row);
+else if(a.duelo_id){button('Sala de espera',async()=>openRoom(a.duelo_id),row)}else el('p','Aguardando criação do duelo.',row);
 }}
+
+const room=document.createElement('dialog');room.style.cssText=dlg.style.cssText;document.body.append(room);
+let activeRoom=null,roomTimer=null,roomBusy=false,roomGeneration=0;
+function stopRoom(){roomGeneration++;clearInterval(roomTimer);roomTimer=null;activeRoom=null;}
+room.addEventListener('close',()=>{if(!room.open)stopRoom()});
+async function openRoom(id){
+ if(!me)throw Error('Perfil indisponível');
+ stopRoom();activeRoom=id;const generation=roomGeneration;const owner=me.id;
+ room.replaceChildren();el('h2','Sala de espera',room);const info=el('p','Conectando…',room);info.setAttribute('role','status');
+ const players=el('div','',room);const ready=el('button','Estou pronto',room);ready.disabled=true;
+ const back=el('button','Voltar',room);back.style.margin='8px';back.onclick=()=>{stopRoom();room.close()};
+ const current=()=>room.open&&generation===roomGeneration&&activeRoom===id;
+ async function sync(confirmReady=false){
+  if(!current()||roomBusy)return;roomBusy=true;ready.disabled=true;
+  try{
+   const read=async()=>{const rows=await window.mw19Read('duelos?select=id,jogador1_id,jogador2_id,pv_jogador1,pv_jogador2,turno,status,jogador1_pronto,jogador2_pronto,jogador1_presenca,jogador2_presenca&id=eq.'+encodeURIComponent(id));if(rows.length!==1)throw Error('Duelo indisponível');return rows[0]};
+   let d=await read();if(!current())return;
+   if(d.jogador1_id!==owner&&d.jogador2_id!==owner)throw Error('Você não participa deste duelo');
+   if(d.status==='aguardando'){
+    await rpc('registrar_presenca_duelo',{p_duelo_id:id});if(!current())return;
+    if(confirmReady)await rpc('confirmar_pronto_duelo',{p_duelo_id:id});
+    d=await read();if(!current())return;
+    // Reconfirma quando ambos já estão prontos, inclusive após reconexão.
+    if(d.status==='aguardando'&&d.jogador1_pronto&&d.jogador2_pronto){await rpc('confirmar_pronto_duelo',{p_duelo_id:id});d=await read();}
+   }
+   if(!current())return;
+   players.replaceChildren();for(const n of [1,2]){const uid=d['jogador'+n+'_id'];const own=uid===owner;const online=Date.now()-Date.parse(d['jogador'+n+'_presenca'])<30000;const section=el('section','',players);section.style.cssText='border:1px solid #b99756;border-radius:8px;padding:10px;margin:10px 0';el('h3',(own?me.nome_usuario:(names.get(uid)||'Jogador '+n))+(own?' (Você)':''),section);el('p','PV: '+d['pv_jogador'+n],section);el('p',(online?'🟢 Presente':'⚪ Ausente')+' · '+(d['jogador'+n+'_pronto']?'Pronto':'Aguardando confirmação'),section);}
+   const mine=d.jogador1_id===owner?d.jogador1_pronto:d.jogador2_pronto;
+   ready.textContent=mine?'Pronto ✓':'Estou pronto';ready.disabled=mine||d.status!=='aguardando';
+   info.textContent=d.status==='em_andamento'?'DUELEM! Ambos confirmados. Arena online ainda não integrada.':d.status==='aguardando'?'Aguardando os dois jogadores · Turno '+d.turno:'Duelo: '+d.status;
+   if(d.status!=='aguardando'){clearInterval(roomTimer);roomTimer=null;}
+  }catch(e){if(current())info.textContent='Falha na sala: '+e.message+' — nova tentativa automática.';}
+  finally{roomBusy=false;}
+ }
+ ready.onclick=()=>sync(true);room.showModal();roomTimer=setInterval(()=>sync(),4000);await sync();return 'Sala de espera aberta.';
+}
 let pollTimer=null;dlg.addEventListener('close',()=>{clearInterval(pollTimer);pollTimer=null;me=null;invites.replaceChildren()});
 function startPoll(){clearInterval(pollTimer);pollTimer=setInterval(async()=>{if(!dlg.open||busy||polling||!me)return;polling=true;try{await refreshInvites()}catch(e){status.textContent='Atualização dos desafios indisponível: '+e.message}finally{polling=false}},5000)}
 button('Copiar meu código',async()=>{if(!me)throw Error('Entre na conta');const value=me.codigo_amigo;profile.querySelector('input')?.remove();try{await navigator.clipboard.writeText(value);return 'Código copiado.'}catch(e){const field=el('input','',profile);field.type='text';field.readOnly=true;field.value=value;field.setAttribute('aria-label','Seu código para copiar manualmente');field.style.cssText='width:100%;box-sizing:border-box;margin-top:8px';field.focus();field.select();field.setSelectionRange(0,value.length);try{if(document.execCommand('copy')){field.remove();return 'Código copiado.'}}catch(e){}return 'Cópia automática indisponível. Selecione o código acima e copie manualmente.'}});
